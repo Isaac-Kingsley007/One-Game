@@ -1,9 +1,9 @@
 'use client';
 
-import { useWallets } from '@mysten/dapp-kit';
-import { Transaction } from '@mysten/sui/transactions';
-import { SuiClient, getFullnodeUrl } from '@mysten/sui/client';
-import { WalletWithRequiredFeatures } from '@mysten/wallet-standard';
+import { useWallets } from '@onelabs/dapp-kit';
+import { Transaction } from '@onelabs/sui/transactions';
+import { SuiClient, getFullnodeUrl } from '@onelabs/sui/client';
+import { WalletWithRequiredFeatures } from '@onelabs/wallet-standard';
 
 /**
  * Get the OneChain RPC client for the current network

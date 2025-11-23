@@ -61,7 +61,7 @@
 //   );
 // }
 
-import { ConnectButton } from '@mysten/dapp-kit';
+import { ConnectButton } from '@onelabs/dapp-kit';
 
 export function WalletButton(){
   return <ConnectButton />;

@@ -1,7 +1,7 @@
 'use client';
 
-import { useWallets, useCurrentWallet, useCurrentAccount } from '@mysten/dapp-kit';
-import { WalletWithRequiredFeatures } from '@mysten/wallet-standard';
+import { useWallets, useCurrentWallet, useCurrentAccount } from '@onelabs/dapp-kit';
+import { WalletWithRequiredFeatures } from '@onelabs/wallet-standard';
 
 export function WalletInfo() {
 

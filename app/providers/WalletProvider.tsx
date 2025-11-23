@@ -1,10 +1,10 @@
 'use client';
 
-import '@mysten/dapp-kit/dist/index.css'; // css importantly for the wallet button to work
+import '@onelabs/dapp-kit/dist/index.css'; // css importantly for the wallet button to work
 
-import { createNetworkConfig, SuiClientProvider, WalletProvider as SuiWalletProvider } from '@mysten/dapp-kit';
+import { createNetworkConfig, SuiClientProvider, WalletProvider as SuiWalletProvider } from '@onelabs/dapp-kit';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { getFullnodeUrl, type SuiClientOptions } from '@mysten/sui/client';
+import { getFullnodeUrl, type SuiClientOptions } from '@onelabs/sui/client';
 import { useMemo } from 'react';
 
 // // Config options for the networks you want to connect to
