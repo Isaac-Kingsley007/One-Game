@@ -40,7 +40,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# docs
-dev.mdx
 
 [A-Z_][A-Z_]*.md
+
+dev.mdx

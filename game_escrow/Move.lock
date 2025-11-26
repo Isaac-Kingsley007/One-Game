@@ -19,3 +19,16 @@ source = { git = "https://github.com/one-chain-labs/onechain.git", rev = "main",
 dependencies = [
   { id = "MoveStdlib", name = "MoveStdlib" },
 ]
+
+[move.toolchain-version]
+compiler-version = "1.0.1"
+edition = "2024.beta"
+flavor = "one"
+
+[env]
+
+[env.testnet]
+chain-id = "1bd5c965"
+original-published-id = "0x0bef86dd83b743276d931cf010fbc278e356062899bd2167c03dbd1e36570b81"
+latest-published-id = "0x0bef86dd83b743276d931cf010fbc278e356062899bd2167c03dbd1e36570b81"
+published-version = "1"
