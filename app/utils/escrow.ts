@@ -4,8 +4,12 @@ import { SuiClient } from '@onelabs/sui/client';
 const PACKAGE_ID = process.env.PACKAGE_ID;
 const ENTRY_AMOUNT = 1000; // in MIST
 
+if(!PACKAGE_ID){
+  throw new Error("Package ID is " + PACKAGE_ID);
+}
+
 // 1. Create Game
-async function createGame(client: SuiClient, signer: any) {
+export async function createGame(client: SuiClient, signer: any) {
   const tx = new Transaction();
   
   const [coin] = tx.splitCoins(tx.gas, [tx.pure(ENTRY_AMOUNT)]);
@@ -24,7 +28,7 @@ async function createGame(client: SuiClient, signer: any) {
 }
 
 // 2. Join Game
-async function joinGame(client: SuiClient, signer: any, gameId: string) {
+export async function joinGame(client: SuiClient, signer: any, gameId: string) {
   const tx = new Transaction();
   
   const [coin] = tx.splitCoins(tx.gas, [tx.pure(ENTRY_AMOUNT)]);
@@ -43,7 +47,7 @@ async function joinGame(client: SuiClient, signer: any, gameId: string) {
 }
 
 // 3. Finish Game
-async function finishGame(
+export async function finishGame(
   client: SuiClient,
   signer: any,
   gameId: string,
@@ -65,7 +69,7 @@ async function finishGame(
 }
 
 // 4. Query Game State
-async function getGameState(client: SuiClient, gameId: string) {
+export async function getGameState(client: SuiClient, gameId: string) {
   const game = await client.getObject({
     id: gameId,
     options: { showContent: true },

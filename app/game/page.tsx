@@ -28,12 +28,21 @@ export default function CoinFlipGame() {
     if (isFlipping) return;
     setIsFlipping(true);
     setResult(null);
+
+    const computerAddress = process.env.COMPUTER_WALLET;
+    const userAddress = account?.address;
+
+    //create a game with computer address . Call createGame here
+    //join the game with user address. Call joinGame here
+    
     setTimeout(() => {
       const didWin = Math.random() >= 0.5;
       setResult(didWin ? 'win' : 'lose');
       setRounds((prev) => prev + 1);
       setIsFlipping(false);
     }, flipDurationMs);
+
+    //finishGame(didWin ? userAddress : computerAddress) finsihGame here
   };
 
   if (!isConnected) {
