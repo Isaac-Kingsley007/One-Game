@@ -2,16 +2,50 @@
 
 import { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import { useCurrentWallet, useCurrentAccount } from '@onelabs/dapp-kit';
+import {
+  useCurrentWallet,
+  useCurrentAccount,
+  useSignAndExecuteTransaction,
+  useSuiClient,
+} from '@onelabs/dapp-kit';
+import { Transaction } from '@onelabs/sui/transactions';
 
 type Result = 'win' | 'lose' | null;
 
 const flipDurationMs = 1800;
+const ENTRY_AMOUNT = 1000_000; // must match Move `ENTRY_AMOUNT` expectations (in OCT's smallest unit)
+const PACKAGE_ID = process.env.NEXT_PUBLIC_PACKAGE_ID as string;
+const CHAIN = 'sui:testnet';
+
+function extractGameId(result: any) {
+  const changes = result?.objectChanges as any[] | undefined;
+  if (!changes) return null;
+  const createdGame = changes.find(
+    (c) =>
+      c.type === 'created' &&
+      typeof c.objectType === 'string' &&
+      c.objectType.includes('::escrow::GameEscrow'),
+  );
+  return createdGame?.objectId ?? null;
+}
 
 export default function CoinFlipGame() {
   const router = useRouter();
   const wallet = useCurrentWallet();
   const account = useCurrentAccount();
+  const client = useSuiClient();
+
+  const { mutateAsync: signAndExecuteTransaction } = useSignAndExecuteTransaction({
+    execute: async ({ bytes, signature }) =>
+      client.executeTransactionBlock({
+        transactionBlock: bytes,
+        signature,
+        options: {
+          showRawEffects: true,
+          showObjectChanges: true,
+        },
+      }),
+  });
   const isConnected = Boolean(wallet?.isConnected && account);
   const [isFlipping, setIsFlipping] = useState(false);
   const [result, setResult] = useState<Result>(null);
@@ -24,25 +58,77 @@ export default function CoinFlipGame() {
     return 'Ready when you are.';
   }, [isFlipping, result]);
 
-  const handleFlip = () => {
+  const handleFlip = async () => {
+    if (!account || !PACKAGE_ID) return;
     if (isFlipping) return;
+
     setIsFlipping(true);
     setResult(null);
 
-    const computerAddress = process.env.COMPUTER_WALLET;
-    const userAddress = account?.address;
+    try {
+      // 1. Create game (conceptually with "computer" as opponent; on-chain this is created for the current wallet)
+      const createTx = new Transaction();
+      const [coinForCreate] = createTx.splitCoins(createTx.gas, [createTx.pure.u64(ENTRY_AMOUNT)]);
+      createTx.moveCall({
+        target: `${PACKAGE_ID}::escrow::create_game`,
+        arguments: [coinForCreate, createTx.pure.u64(ENTRY_AMOUNT)],
+      });
 
-    //create a game with computer address . Call createGame here
-    //join the game with user address. Call joinGame here
-    
-    setTimeout(() => {
-      const didWin = Math.random() >= 0.5;
-      setResult(didWin ? 'win' : 'lose');
-      setRounds((prev) => prev + 1);
+      const createResult = await signAndExecuteTransaction({
+        transaction: createTx,
+        chain: CHAIN,
+      });
+
+      const gameId = extractGameId(createResult);
+      if (!gameId) {
+        throw new Error('Unable to find created GameEscrow object id');
+      }
+
+      // 2. Join game with user as the second participant
+      const joinTx = new Transaction();
+      const [coinForJoin] = joinTx.splitCoins(joinTx.gas, [joinTx.pure.u64(ENTRY_AMOUNT)]);
+      joinTx.moveCall({
+        target: `${PACKAGE_ID}::escrow::join_game`,
+        arguments: [joinTx.object(gameId), coinForJoin],
+      });
+
+      await signAndExecuteTransaction({
+        transaction: joinTx,
+        chain: CHAIN,
+      });
+
+      // 3. Flip locally and then finish game on-chain with the winner address
+      setTimeout(async () => {
+        const didWin = Math.random() >= 0.5;
+        const userAddress = account.address;
+        const computerAddress =
+          (process.env.NEXT_PUBLIC_COMPUTER_ADDRESS as string | undefined) || userAddress;
+        const winnerAddress = didWin ? userAddress : computerAddress;
+
+        setResult(didWin ? 'win' : 'lose');
+        setRounds((prev) => prev + 1);
+        setIsFlipping(false);
+
+        try {
+          const finishTx = new Transaction();
+          finishTx.moveCall({
+            target: `${PACKAGE_ID}::escrow::finish_game`,
+            arguments: [finishTx.object(gameId), finishTx.pure.address(winnerAddress)],
+          });
+
+          await signAndExecuteTransaction({
+            transaction: finishTx,
+            chain: CHAIN,
+          });
+        } catch (finishError) {
+          // Log but don't interrupt UI flow
+          console.error('Error finishing game on-chain:', finishError);
+        }
+      }, flipDurationMs);
+    } catch (error) {
+      console.error('Error running escrow flow for flip:', error);
       setIsFlipping(false);
-    }, flipDurationMs);
-
-    //finishGame(didWin ? userAddress : computerAddress) finsihGame here
+    }
   };
 
   if (!isConnected) {

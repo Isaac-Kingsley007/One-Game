@@ -58,10 +58,11 @@ import { useMemo } from 'react';
 // }
 
 // Config options for the networks you want to connect to
-
+// See OneChain TypeScript SDK docs: https://doc-testnet.onelabs.cc/typescript
 const { networkConfig } = createNetworkConfig({
 	localnet: { url: getFullnodeUrl('localnet') },
 	mainnet: { url: getFullnodeUrl('mainnet') },
+	testnet: { url: getFullnodeUrl('testnet') },
 });
 
 
@@ -71,7 +72,7 @@ const queryClient = new QueryClient();
 export function WalletProvider({ children }: { children: React.ReactNode }) {
 	return (
 		<QueryClientProvider client={queryClient}>
-			<SuiClientProvider networks={networkConfig} defaultNetwork="localnet">
+			<SuiClientProvider networks={networkConfig} defaultNetwork="testnet">
 				<SuiWalletProvider>
 					{children}
 				</SuiWalletProvider>
