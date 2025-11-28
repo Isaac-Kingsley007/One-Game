@@ -31,10 +31,6 @@
 - [Smart Contract Details](#smart-contract-details)
 - [Project Structure](#project-structure)
 - [Roadmap](#roadmap)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
-- [Acknowledgments](#acknowledgments)
 
 ---
 
@@ -60,8 +56,6 @@ Despite the clear need for Web3's transparency and trustlessness, most betting a
 ✅ **Automated Payouts**: Winners receive funds automatically through blockchain execution  
 ✅ **Complete Transparency**: All game logic and fund movements are visible on-chain  
 ✅ **Trustless Operation**: No intermediary or centralized authority controls the funds  
-✅ **Gas-Sponsored Transactions**: Optional sponsored transactions for seamless UX  
-✅ **Provably Fair**: All game outcomes can be verified on the blockchain
 
 ### Key Features
 
@@ -616,100 +610,6 @@ See the [open issues](https://github.com/Isaac-Kingsley007/One-Game/issues) for 
 
 ---
 
-## 🤝 Contributing
-
-Contributions make the open source community an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-### How to Contribute
-
-1. **Fork the Project**
-   ```bash
-   gh repo fork Isaac-Kingsley007/One-Game
-   ```
-
-2. **Create your Feature Branch**
-   ```bash
-   git checkout -b feature/AmazingFeature
-   ```
-
-3. **Commit your Changes**
-   ```bash
-   git commit -m 'Add some AmazingFeature'
-   ```
-
-4. **Push to the Branch**
-   ```bash
-   git push origin feature/AmazingFeature
-   ```
-
-5. **Open a Pull Request**
-
-### Development Guidelines
-
-- Write clean, documented code
-- Add tests for new features
-- Update documentation
-- Follow the existing code style
-- Test on testnet before mainnet
-
-### Code of Conduct
-
-Please read our [Code of Conduct](CODE_OF_CONDUCT.md) before contributing.
-
----
-
-## 📄 License
-
-Distributed under the MIT License. See `LICENSE` for more information.
-
----
-
-## 📧 Contact
-
-**Isaac Kingsley** - Project Lead
-
-- GitHub: [@Isaac-Kingsley007](https://github.com/Isaac-Kingsley007)
-- Project Link: [https://github.com/Isaac-Kingsley007/One-Game](https://github.com/Isaac-Kingsley007/One-Game)
-
-### Community
-
-- Discord: [Join our community](#)
-- Twitter: [@OneGame](#)
-- Documentation: [docs.onegame.io](#)
-
----
-
-## 🙏 Acknowledgments
-
-Special thanks to:
-
-- **[OneChain Labs](https://onelabs.cc/)** - For the OneChain blockchain platform
-- **[Move Language](https://move-book.com/)** - For the secure smart contract language
-- **[Next.js Team](https://nextjs.org/)** - For the amazing React framework
-- **Community Contributors** - For testing and feedback
-
-### Resources Used
-
-- [OneChain Documentation](https://docs.onelabs.cc/)
-- [Move Language Book](https://move-book.com/)
-- [Sui Documentation](https://docs.sui.io/)
-- [Next.js Documentation](https://nextjs.org/docs)
-
----
-
-## 🔒 Security
-
-### Reporting Vulnerabilities
-
-If you discover a security vulnerability, please send an email to security@onegame.io. **Do not** create a public issue.
-
-### Smart Contract Security
-
-- All smart contracts are tested extensively
-- Audits: [View audit reports](./audits)
-- Bug Bounty: [Learn more](./SECURITY.md)
-
----
 
 ## 📊 Stats
 
@@ -730,24 +630,6 @@ If you discover a security vulnerability, please send an email to security@onega
 
 ---
 
-## 📚 Additional Resources
-
-### Tutorials
-- [Getting Started with One Game](./docs/tutorials/getting-started.md)
-- [Deploying Your First Game](./docs/tutorials/deployment.md)
-- [Smart Contract Deep Dive](./docs/tutorials/smart-contracts.md)
-
-### API Documentation
-- [Frontend API Reference](./docs/api/frontend.md)
-- [Smart Contract API](./docs/api/smart-contract.md)
-- [Event System](./docs/api/events.md)
-
-### Examples
-- [Simple Two-Player Game](./examples/simple-game)
-- [Tournament Mode](./examples/tournament)
-- [Custom Game Logic](./examples/custom-logic)
-
----
 
 ## 💪 Powered By
 
