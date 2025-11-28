@@ -12,11 +12,11 @@ if(!PACKAGE_ID){
 export async function createGame(client: SuiClient, signer: any) {
   const tx = new Transaction();
   
-  const [coin] = tx.splitCoins(tx.gas, [tx.pure(ENTRY_AMOUNT)]);
+  const [coin] = tx.splitCoins(tx.gas, [tx.pure.u64(ENTRY_AMOUNT)]);
   
   tx.moveCall({
     target: `${PACKAGE_ID}::escrow::create_game`,
-    arguments: [coin, tx.pure(ENTRY_AMOUNT)],
+    arguments: [coin, tx.pure.u64(ENTRY_AMOUNT)],
   });
   
   const result = await client.signAndExecuteTransaction({
@@ -31,7 +31,7 @@ export async function createGame(client: SuiClient, signer: any) {
 export async function joinGame(client: SuiClient, signer: any, gameId: string) {
   const tx = new Transaction();
   
-  const [coin] = tx.splitCoins(tx.gas, [tx.pure(ENTRY_AMOUNT)]);
+  const [coin] = tx.splitCoins(tx.gas, [tx.pure.u64(ENTRY_AMOUNT)]);
   
   tx.moveCall({
     target: `${PACKAGE_ID}::escrow::join_game`,
@@ -57,7 +57,7 @@ export async function finishGame(
   
   tx.moveCall({
     target: `${PACKAGE_ID}::escrow::finish_game`,
-    arguments: [tx.object(gameId), tx.pure(winnerAddress)],
+    arguments: [tx.object(gameId), tx.pure.u64(winnerAddress)],
   });
   
   const result = await client.signAndExecuteTransaction({
