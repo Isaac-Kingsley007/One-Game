@@ -98,7 +98,7 @@ public fun join_game(
     // Validate game state
     assert!(game.status == 0, EGameAlreadyFull);
     assert!(option::is_none(&game.player2), EGameAlreadyFull);
-    assert!(sender != game.player1, EPlayerAlreadyJoined);
+    //assert!(sender != game.player1, EPlayerAlreadyJoined); uncomment if needed
     
     // Validate payment amount
     assert!(coin::value(&entry_payment) == game.entry_amount, EInvalidAmount);

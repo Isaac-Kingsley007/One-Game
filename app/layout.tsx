@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Gamify - OneChain Gaming Platform",
+  title: "One Game - OneChain Gaming Platform",
   description: "Web3 gaming platform with sponsored transactions on OneChain",
 };
 

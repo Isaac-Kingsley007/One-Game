@@ -95,6 +95,10 @@ export default function CoinFlipGame() {
       await signAndExecuteTransaction({
         transaction: joinTx,
         chain: CHAIN,
+      }, {
+        onError: (error) => {
+          console.error("Error : " + "\n" + error.message + "\n" + error.cause + "\n" + error.stack)
+        }
       });
 
       // 3. Flip locally and then finish game on-chain with the winner address

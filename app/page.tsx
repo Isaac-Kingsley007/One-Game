@@ -17,9 +17,9 @@ export default function Home() {
         <header className="mb-10">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
-              <p className="text-sm uppercase tracking-wide text-blue-500 font-semibold">OneChain Gamify</p>
-              <h1 className="text-4xl font-bold text-gray-900 mb-2">Jump into Web3 mini-games</h1>
-              <p className="text-gray-600">Step 1: connect your One Wallet. Step 2: join the 50/50 coin flip challenge.</p>
+              <p className="text-4xl uppercase tracking-wide text-blue-500 font-semibold">One Game</p>
+              <h1 className="text-xl font-bold text-gray-900 mb-2">Welcome to The Decentralized Game World</h1>
+              <p className="text-gray-600">Powered By One Chain</p>
             </div>
             <WalletButton />
           </div>
