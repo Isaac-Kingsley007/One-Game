@@ -1,8 +1,8 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { WalletButton } from './components/WalletButton';
-import { WalletInfo } from './components/WalletInfo';
+import { WalletButton } from '@/components/WalletButton';
+import { WalletInfo } from '@/components/WalletInfo';
 import { useCurrentWallet, useCurrentAccount } from '@onelabs/dapp-kit';
 
 export default function Home() {
